@@ -4,6 +4,7 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 var jwt = require('jsonwebtoken')
 const User = require('../models/User')
+var fetchuser = require('../middleware/fetchuser')
 
 const JWT_SECRET = 'Aritra@lol'
 
@@ -56,8 +57,18 @@ body('password').isLength({ min: 3 })], async (req, res) => {
 
 })
 
-router.get('/test', (req, res) => {
-    res.json("hello working")
+// Get Logged User credentials using: POST "/api/auth/getuser".
+router.post('/getuser', fetchuser, async (req, res) => {
+    try {
+        const userId = req.user.id
+        const user = await User.findById(userId).select('-password')
+        res.send(user)
+
+    } catch (error) {
+        console.log('part called')
+        console.error(error.message)
+        res.status(500).send("Internal Server Error")
+    }
 })
 
 module.exports = router

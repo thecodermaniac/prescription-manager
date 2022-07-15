@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
 const ImagesSchema = new Schema({
+    patient:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
     pres_image: {
         type: String,
         required: true
