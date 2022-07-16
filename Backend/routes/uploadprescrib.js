@@ -7,7 +7,7 @@ const PresImage = require('../models/PrescriptionImages');
 
 const filestorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "./images")
+        cb(null, "../public/uploads")
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + '-' + file.originalname)
