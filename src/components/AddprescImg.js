@@ -26,7 +26,7 @@ Addimage(data)
                 </div>
                 <br />
                 <br />
-                <button type="submit" className="btn btn-primary">Add Notes</button>
+                <button type="submit" className="btn btn-primary">Add Images</button>
             </form>
         </div>
     )

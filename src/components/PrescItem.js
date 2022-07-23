@@ -4,7 +4,7 @@ import presContext from "../context/prescimages/presContext"
 function PrescItem(props) {
     const context=useContext(presContext)
     const {Deleteimage}=context
-    const { prescimgs } = props
+    const { prescimgs,updateimg } = props
     const handleDelete=()=>{
         Deleteimage(prescimgs._id)
     }
@@ -14,7 +14,7 @@ function PrescItem(props) {
             <div class="card-body">
                 <h5 class="card-title">{prescimgs.date}</h5>
                 <div class="d-flex justify-content-around">
-                    <button type="button" class="btn btn-outline-success">Update</button>
+                    <button type="button" class="btn btn-outline-success" onClick={()=>{updateimg()}}>Update</button>
                     <button type="button" class="btn btn-outline-danger" onClick={handleDelete}>Delete</button>
                 </div>
             </div>
