@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator');
 const router = express.Router()
 const PresImage = require('../models/PrescriptionImages')
 var fetchuser = require('../middleware/fetchuser')
+var fs = require('fs')
 
 router.get('/fetchallpresc', fetchuser, async (req, res) => {
     try {
@@ -25,8 +26,11 @@ router.delete('/deletepresc/:id', fetchuser, async (req, res) => {
             return res.status(401).send("Not Allowed");
         }
 
-        note = await PresImage.findByIdAndDelete(req.params.id)
+        let note = await PresImage.findByIdAndDelete(req.params.id)
+        let path="../public/uploads/"+note.pres_image
+        fs.unlinkSync(path)
         res.json({ "succes": "note deleted", "note": note })
+
 
     } catch (error) {
         console.error(error.message);
@@ -35,6 +39,10 @@ router.delete('/deletepresc/:id', fetchuser, async (req, res) => {
     // Find the note to be deleted and delete it
 
 
+})
+
+router.update('/updateimg/:id',fetchuser,async(req,res)=>{
+    
 })
 
 module.exports = router
