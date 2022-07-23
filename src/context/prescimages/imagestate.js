@@ -1,4 +1,4 @@
-import {useState } from "react"
+import { useState } from "react"
 import ImageContext from './presContext'
 
 
@@ -29,13 +29,26 @@ const ImageState = (props) => {
             },
             body: file
         });
-       
+
         getImages()
+    }
+
+    const Deleteimage = async (id) => {
+        console.log(`the required id: ${id}`)
+        const response = await fetch(`${host}/api/presc/deletepresc/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJkMWEwYjI4YWEyYWU0MWQyYjRjZDMxIn0sImlhdCI6MTY1NzkwNTMzMH0.VRSow5MQ15X4oMAA2UFSc3SZF-qDD4O0SoiDedppRCU"
+            },
+        });
+        var newpres = presimage.filter((img) => { return img._id !== id })
+        setpresimg(newpres)
     }
 
 
     return (
-        <ImageContext.Provider value={{ presimage,getImages,Addimage }}>
+        <ImageContext.Provider value={{ presimage, getImages, Addimage, Deleteimage }}>
             {props.children}
         </ImageContext.Provider>
     )
