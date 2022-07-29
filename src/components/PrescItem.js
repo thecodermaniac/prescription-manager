@@ -10,11 +10,10 @@ function PrescItem(props) {
     }
     return (
         <div class="card" style={{ width: "18rem" }}>
-            <img src={`/uploads/${prescimgs.pres_image}`} class="card-img-top" alt="..." />
+            <img src={`/uploads/${prescimgs.pres_image}`} class="card-img-top" alt="..." style={{"height":'262px',"objectFit":'cover'}}/>
             <div class="card-body">
                 <h5 class="card-title">{prescimgs.date}</h5>
                 <div class="d-flex justify-content-around">
-                    <button type="button" class="btn btn-outline-success" onClick={()=>{updateimg()}}>Update</button>
                     <button type="button" class="btn btn-outline-danger" onClick={handleDelete}>Delete</button>
                 </div>
             </div>

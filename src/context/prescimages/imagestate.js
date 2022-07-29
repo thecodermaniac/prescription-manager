@@ -13,7 +13,7 @@ const ImageState = (props) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJkMWEwYjI4YWEyYWU0MWQyYjRjZDMxIn0sImlhdCI6MTY1NzkwNTMzMH0.VRSow5MQ15X4oMAA2UFSc3SZF-qDD4O0SoiDedppRCU"
+                "auth-token": localStorage.getItem('patient-token')
             }
         });
         const json = await response.json()
@@ -25,7 +25,7 @@ const ImageState = (props) => {
         const response = await fetch(`${host}/api/presc/addimage`, {
             method: 'POST',
             headers: {
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJkMWEwYjI4YWEyYWU0MWQyYjRjZDMxIn0sImlhdCI6MTY1NzkwNTMzMH0.VRSow5MQ15X4oMAA2UFSc3SZF-qDD4O0SoiDedppRCU"
+                "auth-token": localStorage.getItem('patient-token')
             },
             body: file
         });
@@ -39,7 +39,7 @@ const ImageState = (props) => {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJkMWEwYjI4YWEyYWU0MWQyYjRjZDMxIn0sImlhdCI6MTY1NzkwNTMzMH0.VRSow5MQ15X4oMAA2UFSc3SZF-qDD4O0SoiDedppRCU"
+                "auth-token": localStorage.getItem('patient-token')
             },
         });
         var newpres = presimage.filter((img) => { return img._id !== id })
@@ -51,7 +51,7 @@ const ImageState = (props) => {
         const response = await fetch(`${host}/api/presc/updateimg/${id}`, {
             method: 'PUT',
             headers: {
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJkMWEwYjI4YWEyYWU0MWQyYjRjZDMxIn0sImlhdCI6MTY1NzkwNTMzMH0.VRSow5MQ15X4oMAA2UFSc3SZF-qDD4O0SoiDedppRCU"
+                "auth-token": localStorage.getItem('patient-token')
             },
             body: file
         });

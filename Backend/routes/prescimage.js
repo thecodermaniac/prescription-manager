@@ -19,7 +19,7 @@ const upload = multer({ storage: filestorage })
 
 router.get('/fetchallpresc', fetchuser, async (req, res) => {
     try {
-        const presimg = await PresImage.find({ user: req.user.id });
+        const presimg = await PresImage.find({ patient: req.user.id });
         res.json(presimg)
     } catch (error) {
         console.error(error.message);
@@ -30,8 +30,6 @@ router.get('/fetchallpresc', fetchuser, async (req, res) => {
 router.delete('/deletepresc/:id', fetchuser, async (req, res) => {
     try {
         let presimg = await PresImage.findById(req.params.id);
-        console.log(presimg)
-        console.log(req.user.id);
         if (!presimg) { return res.status(404).send("Not Found") }
 
         if (presimg.patient.toString() !== req.user.id) {
@@ -52,7 +50,7 @@ router.delete('/deletepresc/:id', fetchuser, async (req, res) => {
 
 
 })
-
+//not useable update function .
 router.put('/updateimg/:id',fetchuser,upload.single('upimage') ,async(req,res)=>{
 
     try {
@@ -67,8 +65,10 @@ router.put('/updateimg/:id',fetchuser,upload.single('upimage') ,async(req,res)=>
         // res.send("update done")
         let image = await PresImage.findById(req.params.id);
         if (!image) { return res.status(404).send("Not Found") }
+        console.log(image);
+        console.log(req.user.id);
 
-        if (image.patient.toString() !== req.user.id) {
+        if (image.patient.toString() !== req.patient) {
             return res.status(401).send("Not Allowed");
         }
         let path="../public/uploads/"+image.pres_image
