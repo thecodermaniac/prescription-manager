@@ -1,7 +1,7 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const router = express.Router()
-const bcrypt = require('bcrypt')
+const bcryptjs = require('bcryptjs')
 var jwt = require('jsonwebtoken')
 const User = require('../models/User')
 var fetchuser = require('../middleware/fetchuser')
@@ -27,8 +27,8 @@ body('password').isLength({ min: 3 })], async (req, res) => {
             return res.status(400).json({ error: "Sorry a user with this email already exists", valid: success })
         }
 
-        const salt = await bcrypt.genSalt(10)
-        const secrectPass = await bcrypt.hash(req.body.password, salt)
+        const salt = await bcryptjs.genSalt(10)
+        const secrectPass = await bcryptjs.hash(req.body.password, salt)
         // Create a new user
         user = await User.create({
             name: req.body.name,
@@ -74,7 +74,7 @@ router.post('/login',
                 return res.status(400).json({ error: "Sorry no user exists", valid: success })
             }
 
-            const passwordCompare = await bcrypt.compare(req.body.password, user.password)
+            const passwordCompare = await bcryptjs.compare(req.body.password, user.password)
 
             if (!passwordCompare) {
                 success = false
