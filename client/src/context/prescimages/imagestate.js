@@ -48,6 +48,7 @@ const ImageState = (props) => {
 
     const Updateimage= async (id,file)=>{
         console.log(`the required id: ${id}`)
+        console.log(file?.filename);
         const response = await fetch(`${host}/api/presc/updateimg/${id}`, {
             method: 'PUT',
             headers: {

@@ -8,7 +8,7 @@ var fs = require('fs')
 
 const filestorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "../public/uploads")
+        cb(null, "../client/public/uploads")
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + '-' + file.originalname)
@@ -50,7 +50,7 @@ router.delete('/deletepresc/:id', fetchuser, async (req, res) => {
 
 
 })
-//not useable update function .
+
 router.put('/updateimg/:id',fetchuser,upload.single('upimage') ,async(req,res)=>{
 
     try {
@@ -58,6 +58,7 @@ router.put('/updateimg/:id',fetchuser,upload.single('upimage') ,async(req,res)=>
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
+        let id= req.params.id
         const newpresimg={}
         if(req.file.filename){newpresimg.pres_image=req.file.filename}
                 
@@ -68,10 +69,10 @@ router.put('/updateimg/:id',fetchuser,upload.single('upimage') ,async(req,res)=>
         console.log(image);
         console.log(req.user.id);
 
-        if (image.patient.toString() !== req.patient) {
+        if (image.patient.toString() !== req.user.id) {
             return res.status(401).send("Not Allowed");
         }
-        let path="../public/uploads/"+image.pres_image
+        let path="../client/public/uploads/"+image.pres_image
         fs.unlinkSync(path)
         image = await PresImage.findByIdAndUpdate(req.params.id, { $set: newpresimg }, { new: true })
     res.json({ image });

@@ -7,7 +7,7 @@ const PresImage = require('../models/PrescriptionImages');
 
 const filestorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "../public/uploads")
+        cb(null, "../client/public/uploads")
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + '-' + file.originalname)
@@ -40,3 +40,5 @@ router.post('/addimage', fetchuser, upload.single('image'), async (req, res) => 
 
 
 module.exports = router
+
+
